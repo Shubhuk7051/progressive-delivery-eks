@@ -65,6 +65,10 @@ spec:
         - analysis:
             templates:
               - templateName: success-rate-and-error-rate
+            args:
+              - name: canary-hash
+                valueFrom:
+                  podTemplateHashValue: Latest
         - setWeight: 25
         - pause: { duration: 30s }
         - setWeight: 50
