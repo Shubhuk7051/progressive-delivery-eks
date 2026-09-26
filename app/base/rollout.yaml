@@ -46,6 +46,12 @@ spec:
               memory: 256Mi
   strategy:
     canary:
+      canaryService: progressive-delivery-canary
+      stableService: progressive-delivery-stable
+      trafficRouting:
+        alb:
+          ingress: progressive-delivery
+          servicePort: 80
       steps:
         - setWeight: 10
         - pause: { duration: 60s }
