@@ -17,12 +17,12 @@ spec:
     spec:
       containers:
         - name: app
-          image: 609176022576.dkr.ecr.us-east-2.amazonaws.com/progressive-delivery:v1
+          image: 609176022576.dkr.ecr.us-east-2.amazonaws.com/progressive-delivery:v2
           ports:
             - containerPort: 8080
           env:
             - name: APP_VERSION
-              value: "v1"
+              value: "v2"
             - name: FAIL_MODE
               value: "false"
           readinessProbe:
