@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: progressive-delivery
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Shubhuk7051/progressive-delivery-eks.git
+    targetRevision: main
+    path: app/overlays/production
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: progressive-delivery
+  syncPolicy:
+    automated:
+      prune: true       # deletes resources removed from Git
+      selfHeal: true     # reverts manual kubectl changes back to Git state
+    syncOptions:
+      - CreateNamespace=true
