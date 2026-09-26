@@ -1,11 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: progressive-delivery
   labels:
     app: progressive-delivery
 spec:
-  replicas: 3
+  replicas: 10          # 10 replicas makes weight math exact (10%=1 pod, 25%=2-3, 50%=5)
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: progressive-delivery
@@ -22,6 +23,8 @@ spec:
           env:
             - name: APP_VERSION
               value: "v1"
+            - name: FAIL_MODE
+              value: "false"
           readinessProbe:
             httpGet:
               path: /readyz
@@ -41,3 +44,13 @@ spec:
             limits:
               cpu: 250m
               memory: 256Mi
+  strategy:
+    canary:
+      steps:
+        - setWeight: 10
+        - pause: { duration: 60s }
+        - setWeight: 25
+        - pause: { duration: 60s }
+        - setWeight: 50
+        - pause: { duration: 60s }
+        - setWeight: 100
