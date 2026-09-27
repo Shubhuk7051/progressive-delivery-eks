@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<your-username>/progressive-delivery-eks.git
+    repoURL: https://github.com/Shubhuk7051/progressive-delivery-eks.git
     targetRevision: main
     path: app/overlays/production
   destination:
