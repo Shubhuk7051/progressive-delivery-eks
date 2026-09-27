@@ -8,10 +8,12 @@ spec:
     - name: canary-hash
   metrics:
     - name: error-rate
+      initialDelay: 45s
       interval: 30s
       count: 5
       successCondition: result[0] <= 0.1
       failureLimit: 2
+      consecutiveErrorLimit: 8
       provider:
         prometheus:
           address: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
@@ -21,10 +23,12 @@ spec:
             sum(rate(http_requests_total{pod_template_hash="{{args.canary-hash}}"}[1m]))
 
     - name: success-rate
+      initialDelay: 45s
       interval: 30s
       count: 5
       successCondition: result[0] >= 0.9
       failureLimit: 2
+      consecutiveErrorLimit: 8
       provider:
         prometheus:
           address: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
