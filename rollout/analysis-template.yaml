@@ -8,7 +8,7 @@ spec:
     - name: canary-hash
   metrics:
     - name: error-rate
-      initialDelay: 45s
+      initialDelay: 90s
       interval: 30s
       count: 5
       successCondition: result[0] <= 0.1
@@ -23,7 +23,7 @@ spec:
             sum(rate(http_requests_total{pod_template_hash="{{args.canary-hash}}"}[1m]))
 
     - name: success-rate
-      initialDelay: 45s
+      initialDelay: 90s
       interval: 30s
       count: 5
       successCondition: result[0] >= 0.9

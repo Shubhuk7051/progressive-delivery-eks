@@ -54,7 +54,7 @@ spec:
           servicePort: 80
       steps:
         - setWeight: 10
-        - pause: { duration: 30s }
+        - pause: { duration: 90s }
         - analysis:
             templates:
               - templateName: success-rate-and-error-rate
