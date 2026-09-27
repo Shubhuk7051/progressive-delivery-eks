@@ -52,13 +52,6 @@ spec:
         alb:
           ingress: progressive-delivery
           servicePort: 80
-      analysis:
-        templates:
-          - templateName: success-rate-and-error-rate
-        args:
-          - name: canary-hash
-            valueFrom:
-              podTemplateHashValue: Latest
       steps:
         - setWeight: 10
         - pause: { duration: 30s }
