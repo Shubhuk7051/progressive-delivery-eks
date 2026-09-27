@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Shubhuk7051/progressive-delivery-eks.git
+    repoURL: https://github.com/<your-username>/progressive-delivery-eks.git
     targetRevision: main
     path: app/overlays/production
   destination:
@@ -14,7 +14,18 @@ spec:
     namespace: progressive-delivery
   syncPolicy:
     automated:
-      prune: true       # deletes resources removed from Git
-      selfHeal: true     # reverts manual kubectl changes back to Git state
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
+  ignoreDifferences:
+    - group: ""
+      kind: Service
+      name: progressive-delivery-canary
+      jsonPointers:
+        - /spec/selector
+    - group: ""
+      kind: Service
+      name: progressive-delivery-stable
+      jsonPointers:
+        - /spec/selector
