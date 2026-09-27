@@ -17,5 +17,5 @@ spec:
       path: /metrics
       interval: 15s
       relabelings:
-        - sourceLabels: [__meta_kubernetes_pod_label_pod_template_hash]
+        - sourceLabels: [__meta_kubernetes_pod_label_rollouts_pod_template_hash]
           targetLabel: pod_template_hash
