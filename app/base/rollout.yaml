@@ -24,7 +24,9 @@ spec:
             - name: APP_VERSION
               value: "v2"
             - name: FAIL_MODE
-              value: "false"
+              value: "true"
+            - name: FAIL_RATE
+              value: "0.5"
           readinessProbe:
             httpGet:
               path: /readyz
