@@ -18,9 +18,11 @@ spec:
         prometheus:
           address: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
           query: |
-            sum(rate(http_requests_total{status=~"5..", pod_template_hash="{{args.canary-hash}}"}[1m]))
-            /
-            sum(rate(http_requests_total{pod_template_hash="{{args.canary-hash}}"}[1m]))
+            (
+              sum(rate(http_requests_total{status=~"5..", pod_template_hash="{{args.canary-hash}}"}[1m]))
+              /
+              sum(rate(http_requests_total{pod_template_hash="{{args.canary-hash}}"}[1m]))
+            ) or vector(0)
 
     - name: success-rate
       initialDelay: 90s
